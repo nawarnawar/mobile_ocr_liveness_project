@@ -31,6 +31,15 @@ android {
         ignoreWarnings true
     }
 }
+configurations.all {
+    resolutionStrategy {
+        force "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+        force "androidx.lifecycle:lifecycle-viewmodel:2.5.1"
+        force "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+        force "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+
+    }
+}
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -63,5 +72,11 @@ dependencies {
 
     implementation ('com.regula.face.core:basic:7.1.+@aar')
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
 
 }

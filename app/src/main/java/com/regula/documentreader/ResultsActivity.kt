@@ -61,9 +61,10 @@ class ResultsActivity : AppCompatActivity() {
             startActivity(Intent(this, DirectResultsActivity::class.java))
         }
 
+        // Fix: Convert Int to eCheckResult enum
         when(results.status.overallStatus) {
-            CH_CHECK_OK -> binding.overAllResultImage.setImageResource(R.drawable.reg_icon_check_ok)
-            CH_CHECK_WAS_NOT_DONE -> binding.overAllResultImage.setImageResource(R.drawable.reg_icon_no_check)
+            CH_CHECK_OK.value -> binding.overAllResultImage.setImageResource(R.drawable.reg_icon_check_ok)
+            CH_CHECK_WAS_NOT_DONE.value -> binding.overAllResultImage.setImageResource(R.drawable.reg_icon_no_check)
             else -> binding.overAllResultImage.setImageResource(R.drawable.reg_icon_check_fail)
         }
 
@@ -153,6 +154,7 @@ class ResultsActivity : AppCompatActivity() {
             turnTabOff(2)
     }
 
+
     private fun sendToServer(jsonData: String) {
         val client = OkHttpClient()
         val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()
@@ -240,7 +242,7 @@ class ResultsActivity : AppCompatActivity() {
             if (validity.sourceType == type)
                 return validity.status
         }
-        return CH_CHECK_WAS_NOT_DONE
+        return CH_CHECK_WAS_NOT_DONE.value
     }
 
     private fun initCompare(): List<GroupedAttributes> {
@@ -511,9 +513,9 @@ class GroupFragment : Fragment() {
                 )
                 attribute.value != null -> {
                     var color = requireContext().themeColor(R.attr.colorOnSecondary)
-                    if (attribute.valid == CH_CHECK_OK)
+                    if (attribute.valid == CH_CHECK_OK.value)
                         color = Color.GREEN
-                    if (attribute.valid == CH_CHECK_ERROR)
+                    if (attribute.valid == CH_CHECK_ERROR.value)
                         color = Color.RED
                     context?.let {
                         attribute.lcid?.let { lcid ->
@@ -548,9 +550,9 @@ class GroupFragment : Fragment() {
                 groupedAttributes.comparisonLHS != null
                         && groupedAttributes.comparisonRHS != null -> {
                     var value = UNDEFINED
-                    if (attribute.valid == CH_CHECK_ERROR)
+                    if (attribute.valid == CH_CHECK_ERROR.value)
                         value = FAIL
-                    else if (attribute.valid == CH_CHECK_OK)
+                    else if (attribute.valid == CH_CHECK_OK.value)
                         value = SUCCESS
                     sectionsData.add(Status(attribute.name, value))
                 }

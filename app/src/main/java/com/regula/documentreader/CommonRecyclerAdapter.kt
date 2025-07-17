@@ -120,11 +120,14 @@ class CommonRecyclerAdapter(private val items: List<Base>) :
                 if (section.helpTag == 0)
                     binding.help.visibility = INVISIBLE
 
-                when (section.checkStatus){
-                    eCheckResult.CH_CHECK_ERROR ->  binding.completedStatusImage.setImageResource(R.drawable.reg_icon_check_fail)
-                    eCheckResult.CH_CHECK_OK -> binding.completedStatusImage.setImageResource(R.drawable.reg_icon_check_ok)
-                    eCheckResult.CH_CHECK_WAS_NOT_DONE -> binding.completedStatusImage.setImageResource(R.drawable.reg_icon_no_check)
+                // Correction : utiliser les valeurs numériques correspondantes
+                when (section.checkStatus) {
+                    0 -> binding.completedStatusImage.setImageResource(R.drawable.reg_icon_check_ok)
+                    1 -> binding.completedStatusImage.setImageResource(R.drawable.reg_icon_check_fail)
+                    2 -> binding.completedStatusImage.setImageResource(R.drawable.reg_icon_no_check)
+                    else -> binding.completedStatusImage.setImageResource(R.drawable.reg_icon_no_check)
                 }
+
                 binding.help.setOnClickListener {
                     when (section.helpTag) {
                         10 -> showBottomSheetHelp(
@@ -423,20 +426,21 @@ class CommonRecyclerAdapter(private val items: List<Base>) :
                     binding.titleImage.text = ""
                     binding.image.visibility = View.GONE
                 }
-                image.status
+
+                // Correction : si image.status est de type Int?, utiliser les valeurs numériques
                 when (image.status) {
-                    eCheckResult.CH_CHECK_OK -> {
+                    0 -> {
                         binding.elementStatusImage.setImageResource(R.drawable.reg_icon_check_ok)
                     }
-
-                    eCheckResult.CH_CHECK_ERROR -> {
+                    1 -> {
                         binding.elementStatusImage.setImageResource(R.drawable.reg_icon_check_fail)
                     }
-
-                    eCheckResult.CH_CHECK_WAS_NOT_DONE -> {
+                    2 -> {
                         binding.elementStatusImage.setImageResource(R.drawable.reg_icon_no_check)
                     }
-
+                    null -> {
+                        binding.elementStatusImage.setImageBitmap(null)
+                    }
                     else -> {
                         binding.elementStatusImage.setImageBitmap(null)
                     }

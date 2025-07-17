@@ -50,6 +50,11 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".OnlineProcessingActivity" />
+        <activity
+            android:name=".OcrResultsActivity"
+            android:label="Résultats OCR"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
